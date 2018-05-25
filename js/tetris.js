@@ -731,7 +731,6 @@ var tetris = {
         html += '</div>';
         html += '<a class="button" id="bt_play_again">Play again</a>';
         html += '<a class="button" id="bt_main_menu">Main menu</a>';
-        html += '<a class="button" target="_blank" href="http://www.baptistebrunet.com/games/">Play more games</a>';
         tetris.overlay.innerHTML = html;
         tetris.overlay.style.display = 'block';
 
