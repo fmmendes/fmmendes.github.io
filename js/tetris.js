@@ -283,7 +283,6 @@ var tetris = {
                 tetris.display_block[i][j] = tetris.create_group(j * tetris.block_width, (i - 1) * tetris.block_width);
                 tetris.layer_block.add(tetris.display_block[i][j]);
             }
-            ;
             tetris.display_line[i] = new Kinetic.Rect({
                 id: 'sq',
                 x: 0,
@@ -295,7 +294,6 @@ var tetris = {
             tetris.display_line[i].hide();
             tetris.layer_block.add(tetris.display_line[i]);
         }
-        ;
         tetris.stage.add(tetris.layer_stone);
         tetris.stage.add(tetris.layer_shadow);
         tetris.stage.add(tetris.layer_block);
@@ -314,9 +312,7 @@ var tetris = {
                 tetris.display_next[i][j] = tetris.create_group(j * tetris.block_width, i * tetris.block_width);
                 tetris.next_layer.add(tetris.display_next[i][j]);
             }
-            ;
         }
-        ;
         tetris.next_stage.add(tetris.next_layer);
         tetris.next_layer.draw();
         tetris.watch_keys();
@@ -492,9 +488,7 @@ var tetris = {
                     color: null
                 };
             }
-            ;
         }
-        ;
         tetris.show_stone();
     },
 
@@ -508,7 +502,6 @@ var tetris = {
             if (stop > 6) {
                 break;
             }
-            ;
             rand -= tetris.tab_probability[stop];
         }
         // redistribute probability
@@ -518,7 +511,6 @@ var tetris = {
             if (j != stop) {
                 tetris.tab_probability[j] += to_distribute / 6;
             }
-            ;
         }
         return stop;
     },
@@ -535,7 +527,6 @@ var tetris = {
         if (tetris.block == null || tetris.block_pos == null) {
             tetris.create_next_block();
         }
-        ;
         tetris.block = tetris.next_block;
         tetris.block_pos = tetris.next_block_pos;
 
@@ -547,24 +538,11 @@ var tetris = {
         while (!tetris.test_position(tetris.block, tetris.block_pos, tetris.block_x, tetris.block_y)) {
             tetris.block_y--;
         }
-        ;
-
         tetris.update_block();
 
         tetris.fall_timeout = setTimeout(function () {
             tetris.fall_block();
         }, tetris.max_speed_mode ? tetris.max_speed : tetris.speed);
-
-        if (confirm('Libras é uma lingua?')) {
-            tetris.speed = tetris.init_speed - tetris.level * 50;
-            if (tetris.speed < 100) {
-                // maximum difficulty
-                tetris.speed = 100;
-            }
-        } else {
-            // maximum difficulty
-            tetris.speed = 100;
-        }
         console.log(tetris.speed);
     },
 
@@ -585,31 +563,25 @@ var tetris = {
                     });
 
                 }
-                ;
             }
         }
 
         tetris.shine();
 
         // check for line creation
-        var lines_found = []
+        var lines_found = [];
         for (var i = tetris.rows - 1; i >= 0; i--) {
             var num_blocks = 0;
             for (var j = 0; j < tetris.cols; j++) {
                 if (tetris.board[i][j].stone) {
                     num_blocks++;
                 }
-                ;
             }
-            ;
             if (num_blocks == tetris.cols) {
                 lines_found.push(i);
                 tetris.lit_line(i);
             }
-            ;
         }
-        ;
-
         tetris.show_stone();
 
         if (lines_found.length == 0) {
@@ -620,15 +592,12 @@ var tetris = {
                     game_over = true;
                     break;
                 }
-                ;
             }
-            ;
             if (game_over) {
                 tetris.game_over();
             } else {
                 tetris.create_block();
             }
-            ;
         } else {
             tetris.state = 'pause';
             // erase lines and fall blocks
@@ -642,7 +611,6 @@ var tetris = {
                 // maximum difficulty
                 tetris.speed = 100;
             }
-            ;
             // add points to counter
             switch (lines_found.length) {
                 case 1 :
@@ -665,7 +633,6 @@ var tetris = {
                     tetris.message('Tetris');
                     break;
             }
-            ;
             tetris.score_zone.innerHTML = tetris.score;
 
             setTimeout(function () {
@@ -677,7 +644,6 @@ var tetris = {
                         if (lines_found[k] == i - hole) {
                             hole_found = true;
                         }
-                        ;
                     }
                     while (hole_found) {
                         hole++;
@@ -686,10 +652,8 @@ var tetris = {
                             if (lines_found[k] == i - hole) {
                                 hole_found = true;
                             }
-                            ;
                         }
                     }
-                    ;
                     // copy line
                     for (var j = 0; j < tetris.cols; j++) {
                         if (i - hole >= 0) {
@@ -705,17 +669,23 @@ var tetris = {
                             tetris.board[i][j].color = null;
                             tetris.board[i][j].updated = true;
                         }
-                        ;
                     }
-                    ;
                 }
-                ;
                 tetris.show_stone();
                 tetris.state = 'game';
                 tetris.create_block();
+                if (confirm('Libras é uma lingua?')) {
+                    tetris.speed = tetris.init_speed - tetris.level * 50;
+                    if (tetris.speed < 100) {
+                        // maximum difficulty
+                        tetris.speed = 100;
+                    }
+                } else {
+                    // maximum difficulty
+                    tetris.speed = 100;
+                }
             }, 300);
         }
-        ;
     },
 
     pause_game: function () {
@@ -725,7 +695,6 @@ var tetris = {
         html += '<a class="button" id="bt_resume">Resume</a>';
         html += '<a class="button" id="bt_play_again">New game</a>';
         html += '<a class="button" id="bt_main_menu">Main menu</a>';
-        html += '<a class="button" target="_blank" href="http://www.baptistebrunet.com/games/">Play more games</a>';
         tetris.overlay.innerHTML = html;
         tetris.overlay.style.display = 'block';
 
@@ -784,7 +753,6 @@ var tetris = {
                 tetris.score += 1;
                 tetris.score_zone.innerHTML = tetris.score;
             }
-            ;
             tetris.fall_timeout = setTimeout(function () {
                 tetris.fall_block();
             }, tetris.max_speed_mode ? tetris.max_speed : tetris.speed);
@@ -801,7 +769,6 @@ var tetris = {
                 }, 300);
             }
         }
-        ;
     },
 
     test_position: function (block, pos, x, y) {
@@ -823,19 +790,12 @@ var tetris = {
                                     allowed = false;
                                     break;
                                 }
-                                ;
                             }
-                            ;
                         }
-                        ;
                     }
-                    ;
                 }
-                ;
             }
-            ;
         }
-        ;
         return allowed;
     },
 
@@ -849,9 +809,7 @@ var tetris = {
                     tetris.board[i][j].updated = true;
                 }
             }
-            ;
         }
-        ;
         // draw the new position of the block
         for (var i = 0; i < tetris.shape[tetris.block][tetris.block_pos].length; i++) {
             for (var j = 0; j < tetris.shape[tetris.block][tetris.block_pos][0].length; j++) {
@@ -863,9 +821,7 @@ var tetris = {
                     }
                 }
             }
-            ;
         }
-        ;
         // cast shadow
         var kick_y = 0;
         while (tetris.test_position(tetris.block, tetris.block_pos, tetris.block_x, tetris.block_y + kick_y)) {
@@ -880,15 +836,10 @@ var tetris = {
                             tetris.board[tetris.block_y + i + (kick_y - 1)][tetris.block_x + j].color = tetris.colors[tetris.block];
                             tetris.board[tetris.block_y + i + (kick_y - 1)][tetris.block_x + j].updated = true;
                         }
-                        ;
                     }
-                    ;
                 }
-                ;
             }
-            ;
         }
-        ;
         tetris.show_block();
     },
 
@@ -898,17 +849,13 @@ var tetris = {
                 if (tetris.board[i][j].color != null) {
                     tetris.display_stone[i][j].children[0].setFill(tetris.board[i][j].color);
                 }
-                ;
                 if (tetris.board[i][j].stone) {
                     tetris.display_stone[i][j].show();
                 } else {
                     tetris.display_stone[i][j].hide();
                 }
-                ;
             }
-            ;
         }
-        ;
         // fix for Android 4.1
         /*
         var canvas = document.querySelectorAll('#game_zone canvas');
@@ -933,21 +880,16 @@ var tetris = {
                     } else {
                         tetris.display_block[i][j].hide();
                     }
-                    ;
                     if (tetris.board[i][j].shadow) {
                         tetris.display_shadow[i][j].setFill(tetris.board[i][j].color);
                         tetris.display_shadow[i][j].show();
                     } else {
                         tetris.display_shadow[i][j].hide();
                     }
-                    ;
                     tetris.board[i][j].updated = false;
                 }
-                ;
             }
-            ;
         }
-        ;
         // fix for Android 4.1
         /*
         var canvas = document.querySelectorAll('#game_zone canvas');
@@ -967,9 +909,7 @@ var tetris = {
             for (var j = 0; j < 4; j++) {
                 tetris.display_next[i][j].hide();
             }
-            ;
         }
-        ;
         for (var i = 0; i < tetris.shape[tetris.next_block][tetris.next_block_pos].length; i++) {
             for (var j = 0; j < tetris.shape[tetris.next_block][tetris.next_block_pos][0].length; j++) {
                 if (tetris.shape[tetris.next_block][tetris.next_block_pos][i][j] == 1) {
@@ -977,9 +917,7 @@ var tetris = {
                     tetris.display_next[i][j].show();
                 }
             }
-            ;
         }
-        ;
         switch (tetris.next_block) {
             case 0 :
                 tetris.next_layer.setX(0);
@@ -1017,16 +955,13 @@ var tetris = {
                 tetris.display_stone[tetris.shine_tab[k].i][tetris.shine_tab[k].j].children[1].setFill('rgba(255, 255, 255, .6)');
                 tetris.display_stone[tetris.shine_tab[k].i][tetris.shine_tab[k].j].children[2].setFill('rgba(0, 0, 0, .6)');
             }
-            ;
         }
-        ;
         setTimeout(function () {
             for (var k = 0; k < tetris.shine_tab.length; k++) {
                 if (tetris.shine_tab[k].i > 0) {
                     tetris.display_stone[tetris.shine_tab[k].i][tetris.shine_tab[k].j].children[1].setFill('rgba(255, 255, 255, .3)');
                     tetris.display_stone[tetris.shine_tab[k].i][tetris.shine_tab[k].j].children[2].setFill('rgba(0, 0, 0, .3)');
                 }
-                ;
             }
             tetris.shine_tab = [];
             tetris.layer_stone.draw();
@@ -1063,7 +998,6 @@ var tetris = {
             tetris.stationary = false;
             tetris.update_block();
         }
-        ;
     },
 
     move_right: function () {
@@ -1072,7 +1006,6 @@ var tetris = {
             tetris.stationary = false;
             tetris.update_block();
         }
-        ;
     },
 
     drop_block: function () {
@@ -1096,7 +1029,6 @@ var tetris = {
         if (new_pos >= tetris.shape[tetris.block].length) {
             new_pos = 0;
         }
-        ;
         var allowed = true;
         allowed = tetris.test_position(tetris.block, new_pos, tetris.block_x, tetris.block_y);
 
@@ -1106,7 +1038,6 @@ var tetris = {
                 allowed = true;
                 kick_x = -1;
             }
-            ;
         }
         if (!allowed) {
             // try a wall kick on the right
@@ -1114,7 +1045,6 @@ var tetris = {
                 allowed = true;
                 kick_x = 1;
             }
-            ;
         }
         if (!allowed) {
             // try a wall kick on the top
@@ -1122,7 +1052,6 @@ var tetris = {
                 allowed = true;
                 kick_y = -1;
             }
-            ;
         }
         if (!allowed) {
             // try a double wall kick on the left
@@ -1130,7 +1059,6 @@ var tetris = {
                 allowed = true;
                 kick_x = -2;
             }
-            ;
         }
         if (!allowed) {
             // try a double wall kick on the right
@@ -1138,7 +1066,6 @@ var tetris = {
                 allowed = true;
                 kick_x = 2;
             }
-            ;
         }
         if (allowed) {
             // move the block (rotate)
@@ -1148,7 +1075,6 @@ var tetris = {
             tetris.stationary = false;
             tetris.update_block();
         }
-        ;
     },
 
     watch_keys: function () {
@@ -1186,9 +1112,7 @@ var tetris = {
                         }
                         break;
                 }
-                ;
             }
-            ;
         });
         document.addEventListener('keyup', function (e) {
             if ((tetris.state == 'game' || tetris.state == 'pause') && tetris.mappings[e.keyCode]) {
@@ -1223,7 +1147,6 @@ var tetris = {
                 tetris.moving = false;
                 tetris.finger_lock = false;
             }
-            ;
         });
         document.addEventListener('touchmove', function (e) {
             // prevent window scrolling
@@ -1239,7 +1162,6 @@ var tetris = {
                     tetris.max_speed_mode = false;
                     tetris.move_left();
                 }
-                ;
                 if (new_pos_x - tetris.last_pos_x >= tetris.block_width) {
                     // finger going right
                     tetris.last_pos_x = new_pos_x;
@@ -1248,7 +1170,6 @@ var tetris = {
                     tetris.max_speed_mode = false;
                     tetris.move_right();
                 }
-                ;
                 if (new_pos_y - tetris.last_pos_y >= tetris.block_width) {
                     // finger going down
                     tetris.last_pos_x = new_pos_x;
@@ -1260,7 +1181,6 @@ var tetris = {
                     tetris.stationary = true;
                     tetris.fall_block();
                 }
-                ;
                 if (new_pos_y - tetris.last_pos_y <= -tetris.block_width) {
                     // finger going up
                     tetris.last_pos_x = new_pos_x;
@@ -1268,10 +1188,7 @@ var tetris = {
                     tetris.moving = true;
                     tetris.max_speed_mode = false;
                 }
-                ;
-
             }
-            ;
         });
         document.addEventListener('touchend', function (e) {
             if (tetris.state == 'game') {
@@ -1283,13 +1200,9 @@ var tetris = {
                         if ((new Date).getTime() - tetris.time_touch_down < 100) {
                             tetris.drop_block();
                         }
-                        ;
                     }
-                    ;
                 }
-                ;
             }
-            ;
         });
     },
 
