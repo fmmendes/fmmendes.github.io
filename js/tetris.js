@@ -546,6 +546,19 @@ var tetris = {
         console.log(tetris.speed);
     },
 
+    question: function () {
+        if (confirm('Libras é uma lingua?')) {
+            tetris.speed = tetris.init_speed - tetris.level * 50;
+            if (tetris.speed < 100) {
+                // maximum difficulty
+                tetris.speed = 100;
+            }
+        } else {
+            // maximum difficulty
+            tetris.speed = 100;
+        }
+    },
+
     lock_block: function () {
         clearTimeout(tetris.fall_timeout);
         tetris.finger_lock = true;
@@ -674,17 +687,8 @@ var tetris = {
                 tetris.show_stone();
                 tetris.state = 'game';
                 tetris.create_block();
-                if (confirm('Libras é uma lingua?')) {
-                    tetris.speed = tetris.init_speed - tetris.level * 50;
-                    if (tetris.speed < 100) {
-                        // maximum difficulty
-                        tetris.speed = 100;
-                    }
-                } else {
-                    // maximum difficulty
-                    tetris.speed = 100;
-                }
             }, 300);
+            tetris.question();
         }
     },
 
