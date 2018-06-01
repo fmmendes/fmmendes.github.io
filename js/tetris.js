@@ -687,8 +687,8 @@ var tetris = {
                 tetris.show_stone();
                 tetris.state = 'game';
                 tetris.create_block();
+                tetris.question();
             }, 300);
-            tetris.question();
         }
     },
 
