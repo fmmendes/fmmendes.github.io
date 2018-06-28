@@ -215,7 +215,14 @@
         if ($.fn.typed){
             var $typedStrings = $('.typed-strings');
             $typedStrings.typed({
-                strings: ['pet lover, coffee addict..', 'fun people to jam with..', 'talented and passionate..'],
+                strings: [
+                    'pai...',
+                    'amante de café...',
+                    'talentoso...',
+                    'amante de tecnologia...',
+                    'nerd...',
+                    'amante de inovações...'
+                ],
                 typeSpeed: 100,
                 loop: true,
                 showCursor: false
