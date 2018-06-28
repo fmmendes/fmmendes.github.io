@@ -350,55 +350,14 @@
                 width: '100%'
             });
         }
-            
-            
-        /** Form - Contact */
-        var $formContact = $('#form-contact'),
-            $btnFormContact = $('#btn-form-contact');
-        
-        $btnFormContact.on('click', function(e){
-            $formContact.validate();
-            if ($formContact.valid()){
-                send_mail($formContact, $btnFormContact);
-            }
-            e.preventDefault();
-        });
-        
-        // Send mail
-        function send_mail($form, $btnForm){
-            var defaultMessage = $btnForm.html(),
-                sendingMessage = 'Loading...',
-                errorMessage = 'Error Sending!',
-                okMessage = 'Email Sent!';
-            
-            $btnForm.html(sendingMessage);
-            
-            $.ajax({
-                url: $form.attr('action'),
-                type: 'post',
-                dataType: 'json',
-                data: $form.serialize(),
-                success: function(data){
-                    if (data === true){
-                        $btnForm.html(okMessage);
-                        $form.find('input[type="text"], input[type="email"], textarea, select').val('');
-                    }
-                    else{
-                        $btnForm.html(errorMessage);
-                    }
 
-                    setTimeout(function(){
-                        $btnForm.html(defaultMessage);
-                    }, 3000);
-                },
-                error: function(xhr, err){
-                    $btnForm.html(errorMessage);
+        /** Pageclip **/
+        var form = document.querySelector('.pageclip-form')
+        Pageclip.form(form, {
+            onSubmit: function (event) { },
+            onResponse: function (error, response) { },
+            successTemplate: '<span>Obrigado!</span>'
+        })
 
-                    setTimeout(function(){
-                        $btnForm.html(defaultMessage);
-                    }, 3000);
-                }
-            });
-        }
     });
 })(jQuery);
