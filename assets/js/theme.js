@@ -216,12 +216,12 @@
             var $typedStrings = $('.typed-strings');
             $typedStrings.typed({
                 strings: [
-                    'pai...',
-                    'amante de café...',
-                    'talentoso...',
-                    'amante de tecnologia...',
-                    'nerd...',
-                    'amante de inovações...'
+                    'HTML5+CSS3',
+                    'PHP',
+                    'C#',
+                    'SQL',
+                    'PL/SQL',
+                    'apaixonado por café'
                 ],
                 typeSpeed: 100,
                 loop: true,
