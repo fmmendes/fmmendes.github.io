@@ -1,8 +1,8 @@
 /* global Pace, ScrollMagic, Linear */
 
-(function($){
+(function ($) {
     "use strict";
-    
+
     var $document = $(document),
         $window = $(window),
         $htmlBody = $('html, body'),
@@ -16,166 +16,171 @@
         $accordionWork = $('#accordion-work'),
         navHeight = 80,
         navHeightShrink = 66;
-      
+
     /** Detect mobile device */
     var isMobile = {
-        Android: function(){
+        Android: function () {
             return navigator.userAgent.match(/Android/i);
         },
-        BlackBerry: function(){
+        BlackBerry: function () {
             return navigator.userAgent.match(/BlackBerry/i);
         },
-        iOS: function(){
+        iOS: function () {
             return navigator.userAgent.match(/iPhone|iPad|iPod/i);
         },
-        Opera: function(){
+        Opera: function () {
             return navigator.userAgent.match(/Opera Mini/i);
         },
-        Windows: function(){
+        Windows: function () {
             return navigator.userAgent.match(/IEMobile/i);
         },
-        any: function(){
+        any: function () {
             return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
         }
     };
-    
-    
+
+
     /*
     * Window load
     */
-   
-    $window.on('load', function(){
-        
+
+    $window.on('load', function () {
+
         /** Bootstrap scrollspy */
         var ww = Math.max($window.width(), window.innerWidth);
-        $body.scrollspy({    
+        $body.scrollspy({
             target: '#navigation',
             offset: ww >= 992 ? navHeightShrink : navHeight
         });
-        
-        
-        /** Sticky menu */ 
-        if( isMobile.any()){
+
+
+        /** Sticky menu */
+        if (isMobile.any()) {
             $navbar.addClass('is-mobile');
         }
-        
-        if (!$navbar.hasClass('is-mobile') && ww >= 992){
-            $navbar.sticky({topSpacing:0});
+
+        if (!$navbar.hasClass('is-mobile') && ww >= 992) {
+            $navbar.sticky({topSpacing: 0});
         }
-        
-        
+
+
         /** Gallery - Filter */
-        if ($.fn.imagesLoaded && $.fn.isotope){
+        if ($.fn.imagesLoaded && $.fn.isotope) {
             $galleryGrid.isotope();
         }
     });
-    
-    
+
+
     /*
     * Document ready
     */
-   
-    $document.ready(function(){
-        
+
+    $document.ready(function () {
+
         var ww = Math.max($window.width(), window.innerWidth);
-        
+
         /*
         * Window scroll
         */
-       
-        $window.on('scroll', function(){
-        
-            if ($document.scrollTop() > navHeight){
-                
+
+        $window.on('scroll', function () {
+
+            if ($document.scrollTop() > navHeight) {
+
                 /** Shrink navigation */
                 $navbar.addClass('shrink');
-                
+
                 /** Scroll to top */
                 $scrollToTop.fadeIn();
             }
-            else{
-                
+            else {
+
                 /** Shrink navigation */
                 $navbar.removeClass('shrink');
-                
+
                 /** Scroll to top */
                 $scrollToTop.fadeOut();
             }
         });
-        
-        
+
+
         /*
         * Window resize
         */
-       
-        $window.on('resize', function(){
-            
+
+        $window.on('resize', function () {
+
             /** Bootstrap scrollspy */
             var dataScrollSpy = $body.data('bs.scrollspy'),
                 ww = Math.max($window.width(), window.innerWidth),
                 offset = ww >= 992 ? navHeightShrink : navHeight;
-        
+
             dataScrollSpy._config.offset = offset;
             $body.data('bs.scrollspy', dataScrollSpy);
             $body.scrollspy('refresh');
-            
-            
-            /** Sticky menu */ 
+
+
+            /** Sticky menu */
             $navbar.unstick();
-            if (!$navbar.hasClass('is-mobile') && ww >= 992){
-                $navbar.sticky({topSpacing:0});
+            if (!$navbar.hasClass('is-mobile') && ww >= 992) {
+                $navbar.sticky({topSpacing: 0});
             }
-            
-            
+
+
             /** Accordion collapse */
-            if (ww < 768){
+            if (ww < 768) {
                 $accordionEducation.find('.collapse').collapse('show');
                 $accordionWork.find('.collapse').collapse('show');
             }
-            else{
+            else {
                 $accordionEducation.find('.collapse').not(':first').collapse('hide');
                 $accordionWork.find('.collapse').not(':first').collapse('hide');
             }
         });
-        
-        
-        /** Page scroll */ 
-        $pageScrollLink.on('click', function(e){
+
+
+        /** Page scroll */
+        $pageScrollLink.on('click', function (e) {
             var anchor = $(this),
                 target = anchor.attr('href');
             pageScroll(target);
             e.preventDefault();
         });
-        
-        function pageScroll(target){
+
+        function pageScroll(target) {
             var ww = Math.max($window.width(), window.innerWidth),
-                    offset = ww >= 992 ? navHeightShrink : navHeight;
-            
+                offset = ww >= 992 ? navHeightShrink : navHeight;
+
             $htmlBody.stop().animate({
                 scrollTop: $(target).offset().top - (offset - 1)
             }, 1000, 'easeInOutExpo');
-            
+
             // Automatically retract the navigation after clicking on one of the menu items.
             $navbarCollapse.collapse('hide');
         };
-        
-        
+
+
         /** BG Parallax */
-        if (typeof ScrollMagic !== 'undefined'){
+        if (typeof ScrollMagic !== 'undefined') {
             var selector = '.home-bg-parallax';
-            
+
             // Init controller
-            var controller = new ScrollMagic.Controller({globalSceneOptions: {triggerHook: 'onEnter', duration: '200%'}});
-        
+            var controller = new ScrollMagic.Controller({
+                globalSceneOptions: {
+                    triggerHook: 'onEnter',
+                    duration: '200%'
+                }
+            });
+
             // Build scenes
             new ScrollMagic.Scene({triggerElement: selector})
-                    .setTween(selector + ' > .bg-parallax', {y: '80%', ease: Linear.easeNone})
-                    .addTo(controller);
+                .setTween(selector + ' > .bg-parallax', {y: '80%', ease: Linear.easeNone})
+                .addTo(controller);
         }
-        
-        
+
+
         /** BG Slideshow */
-        if ($.fn.flexslider){
+        if ($.fn.flexslider) {
             var $bgSlideshow = $('.bg-slideshow-wrapper');
             $bgSlideshow.flexslider({
                 selector: '.slides > .bg-cover',
@@ -188,9 +193,9 @@
                 touch: false
             });
         }
-        
+
         /** BG Slider */
-        if ($.fn.flickity){
+        if ($.fn.flickity) {
             var $bgSlider = $('#home').find('.carousel-custom');
             $bgSlider.flickity({
                 cellSelector: '.carousel-cell',
@@ -203,55 +208,58 @@
                 imagesLoaded: true,
                 pauseAutoPlayOnHover: false
             });
-            
+
             var flkty = $bgSlider.data('flickity');
-            $bgSlider.find('.flickity-page-dots').on('mouseleave', function(){ 
-                flkty.playPlayer(); 
+            $bgSlider.find('.flickity-page-dots').on('mouseleave', function () {
+                flkty.playPlayer();
             });
         }
-        
-        
+
+
         /** Animated typing */
-        if ($.fn.typed){
+        if ($.fn.typed) {
             var $typedStrings = $('.typed-strings');
             $typedStrings.typed({
                 strings: [
-                    'HTML5+CSS3',
+                    'HTML5',
+                    'CSS3',
+                    'Bootstrap',
+                    'Codeigniter',
                     'PHP',
                     'C#',
                     'SQL',
                     'PL/SQL',
-                    'apaixonado por café'
+                    'jQuery'
                 ],
                 typeSpeed: 100,
                 loop: true,
                 showCursor: false
             });
         }
-        
-        
+
+
         /** Gallery - Magnific popup */
-        if ($.fn.magnificPopup){
+        if ($.fn.magnificPopup) {
             $galleryGrid.magnificPopup({
                 delegate: 'a.zoom',
                 type: 'image',
                 mainClass: 'mfp-fade',
-                gallery:{
+                gallery: {
                     enabled: true,
                     navigateByImgClick: true,
-                    preload: [0,2],
+                    preload: [0, 2],
                     tPrev: 'Previous',
                     tNext: 'Next',
                     tCounter: '<span class="mfp-counter-curr">%curr%</span> of <span class="mfp-counter-total">%total%</span>'
                 }
             });
         }
-        
-        
+
+
         /** Gallery - Filter */
-        if ($.fn.imagesLoaded && $.fn.isotope){
+        if ($.fn.imagesLoaded && $.fn.isotope) {
             var $gridSelectors = $('.gallery-filter').find('a');
-            $gridSelectors.on('click', function(e){
+            $gridSelectors.on('click', function (e) {
                 $gridSelectors.removeClass('disabled');
                 $(this).addClass('disabled');
 
@@ -262,94 +270,94 @@
                 e.preventDefault();
             });
         }
-        
-        
+
+
         /** Accordion collapse */
-        if (ww < 768){
+        if (ww < 768) {
             $accordionEducation.find('.collapse').collapse('show');
             $accordionWork.find('.collapse').collapse('show');
         }
-        else{
+        else {
             $accordionEducation.find('.collapse').not(':first').collapse('hide');
             $accordionWork.find('.collapse').not(':first').collapse('hide');
         }
-        
-        
+
+
         /** Chart - Bar */
         var $chartBar = $('.chart-bar'),
             $chartBarItem = $chartBar.find('.item-progress');
-            
-        $chartBar.one('inview', function(isInView){
-            if (isInView){
-                $chartBarItem.each(function(){
+
+        $chartBar.one('inview', function (isInView) {
+            if (isInView) {
+                $chartBarItem.each(function () {
                     $(this).css('width', $(this).data('percent') + '%');
                     $(this).next().css('right', 100 - $(this).data('percent') + '%');
                 });
             }
         });
-        
-        
+
+
         /** Chart - Circle */
         var $chartCircle = $('.chart-circle').find('.chart'),
             $chartCircleItem = $chartCircle.find('.item-progress');
-            
-        $chartCircle.one('inview', function(isInView){
-            if (isInView){
-                $chartCircleItem.each(function(){
+
+        $chartCircle.one('inview', function (isInView) {
+            if (isInView) {
+                $chartCircleItem.each(function () {
                     $(this).css('height', $(this).data('percent') + '%');
                 });
             }
         });
-        
-        
+
+
         /** Chart - Column */
         var $chartColumn = $('.chart-column').find('.chart'),
             $chartColumnItem = $chartColumn.find('.item-progress');
-            
-        $chartColumnItem.each(function(){
+
+        $chartColumnItem.each(function () {
             $(this).css('height', $(this).data('percent') + '%');
         });
-        
-        
+
+
         /** Flexslider  - References */
         var $flexsliderReferences = $('#flexslider-references'),
             $flexPrev = $flexsliderReferences.find('a.flex-prev'),
             $flexNext = $flexsliderReferences.find('a.flex-next');
-            
+
         $flexsliderReferences.flexslider({
             selector: '.slides > .item',
             manualControls: '.flex-control-nav li',
-            directionNav : false,
+            directionNav: false,
             slideshowSpeed: 4000,
-            after: function(slider){
-                if (!slider.playing){
+            after: function (slider) {
+                if (!slider.playing) {
                     slider.play();
                 }
             }
-        }); 
-        
-        $flexPrev.on('click', function(e){
+        });
+
+        $flexPrev.on('click', function (e) {
             $flexsliderReferences.flexslider('prev');
             e.preventDefault();
         });
 
-        $flexNext.on('click', function(e){
+        $flexNext.on('click', function (e) {
             $flexsliderReferences.flexslider('next');
             e.preventDefault();
         });
-        
-        
+
+
         /** Counter number */
         var $timer = $('.timer');
-        $timer.one('inview', function(isInView){
-            if (isInView){
+        $timer.one('inview', function (isInView) {
+            if (isInView) {
                 $(this).countTo();
             }
         });
-        
-        
+
+
         /** Form - Custom */
-        if ($.fn.select2){
+        if ($.fn.select2) {
             var $selectForm = $('.select2');
             $selectForm.select2({
                 containerCssClass: 'select2-container-custom',
@@ -361,8 +369,10 @@
         /** Pageclip **/
         var form = document.querySelector('.pageclip-form')
         Pageclip.form(form, {
-            onSubmit: function (event) { },
-            onResponse: function (error, response) { },
+            onSubmit: function (event) {
+            },
+            onResponse: function (error, response) {
+            },
             successTemplate: '<span>Obrigado!</span>'
         })
 
