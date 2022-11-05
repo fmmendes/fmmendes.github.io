@@ -221,19 +221,17 @@
             var $typedStrings = $('.typed-strings');
             $typedStrings.typed({
                 strings: [
-                    'HTML5',
-                    'CSS3',
-                    'Bootstrap',
-                    'Codeigniter',
+                    'DevOps',
+                    'Node.js',
+                    'Java',
                     'PHP',
-                    'C#',
                     'SQL',
                     'PL/SQL',
-                    'jQuery'
+                    'C#',
                 ],
                 typeSpeed: 100,
                 loop: true,
-                showCursor: false
+                showCursor: true
             });
         }
 
