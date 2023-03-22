@@ -3,38 +3,25 @@
 (function ($) {
     "use strict";
 
-    var $document = $(document),
-        $window = $(window),
-        $htmlBody = $('html, body'),
-        $body = $('body'),
-        $navbar = $('.navbar'),
-        $navbarCollapse = $('.navbar-collapse'),
-        $pageScrollLink = $('.page-scroll'),
-        $scrollToTop = $('.scroll-to-top'),
-        $galleryGrid = $('.gallery-grid'),
-        $accordionEducation = $('#accordion-education'),
-        $accordionWork = $('#accordion-work'),
-        navHeight = 80,
+    const $document = $(document), $window = $(window), $htmlBody = $('html, body'), $body = $('body'),
+        $navbar = $('.navbar'), $navbarCollapse = $('.navbar-collapse'), $pageScrollLink = $('.page-scroll'),
+        $scrollToTop = $('.scroll-to-top'), $galleryGrid = $('.gallery-grid'),
+        $accordionEducation = $('#accordion-education'), $accordionWork = $('#accordion-work'), navHeight = 80,
         navHeightShrink = 66;
 
     /** Detect mobile device */
-    var isMobile = {
+    const isMobile = {
         Android: function () {
             return navigator.userAgent.match(/Android/i);
-        },
-        BlackBerry: function () {
+        }, BlackBerry: function () {
             return navigator.userAgent.match(/BlackBerry/i);
-        },
-        iOS: function () {
+        }, iOS: function () {
             return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-        },
-        Opera: function () {
+        }, Opera: function () {
             return navigator.userAgent.match(/Opera Mini/i);
-        },
-        Windows: function () {
+        }, Windows: function () {
             return navigator.userAgent.match(/IEMobile/i);
-        },
-        any: function () {
+        }, any: function () {
             return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
         }
     };
@@ -47,10 +34,9 @@
     $window.on('load', function () {
 
         /** Bootstrap scrollspy */
-        var ww = Math.max($window.width(), window.innerWidth);
+        const ww = Math.max($window.width(), window.innerWidth);
         $body.scrollspy({
-            target: '#navigation',
-            offset: ww >= 992 ? navHeightShrink : navHeight
+            target: '#navigation', offset: ww >= 992 ? navHeightShrink : navHeight
         });
 
 
@@ -70,14 +56,12 @@
         }
     });
 
-
     /*
     * Document ready
     */
 
     $document.ready(function () {
-
-        var ww = Math.max($window.width(), window.innerWidth);
+        const ww = Math.max($window.width(), window.innerWidth);
 
         /*
         * Window scroll
@@ -92,8 +76,7 @@
 
                 /** Scroll to top */
                 $scrollToTop.fadeIn();
-            }
-            else {
+            } else {
 
                 /** Shrink navigation */
                 $navbar.removeClass('shrink');
@@ -111,8 +94,7 @@
         $window.on('resize', function () {
 
             /** Bootstrap scrollspy */
-            var dataScrollSpy = $body.data('bs.scrollspy'),
-                ww = Math.max($window.width(), window.innerWidth),
+            const dataScrollSpy = $body.data('bs.scrollspy'), ww = Math.max($window.width(), window.innerWidth),
                 offset = ww >= 992 ? navHeightShrink : navHeight;
 
             dataScrollSpy._config.offset = offset;
@@ -131,8 +113,7 @@
             if (ww < 768) {
                 $accordionEducation.find('.collapse').collapse('show');
                 $accordionWork.find('.collapse').collapse('show');
-            }
-            else {
+            } else {
                 $accordionEducation.find('.collapse').not(':first').collapse('hide');
                 $accordionWork.find('.collapse').not(':first').collapse('hide');
             }
@@ -141,15 +122,13 @@
 
         /** Page scroll */
         $pageScrollLink.on('click', function (e) {
-            var anchor = $(this),
-                target = anchor.attr('href');
+            var anchor = $(this), target = anchor.attr('href');
             pageScroll(target);
             e.preventDefault();
         });
 
         function pageScroll(target) {
-            var ww = Math.max($window.width(), window.innerWidth),
-                offset = ww >= 992 ? navHeightShrink : navHeight;
+            var ww = Math.max($window.width(), window.innerWidth), offset = ww >= 992 ? navHeightShrink : navHeight;
 
             $htmlBody.stop().animate({
                 scrollTop: $(target).offset().top - (offset - 1)
@@ -157,18 +136,17 @@
 
             // Automatically retract the navigation after clicking on one of the menu items.
             $navbarCollapse.collapse('hide');
-        };
+        }
 
 
         /** BG Parallax */
         if (typeof ScrollMagic !== 'undefined') {
-            var selector = '.home-bg-parallax';
+            const selector = '.home-bg-parallax';
 
             // Init controller
-            var controller = new ScrollMagic.Controller({
+            const controller = new ScrollMagic.Controller({
                 globalSceneOptions: {
-                    triggerHook: 'onEnter',
-                    duration: '200%'
+                    triggerHook: 'onEnter', duration: '200%'
                 }
             });
 
@@ -181,7 +159,7 @@
 
         /** BG Slideshow */
         if ($.fn.flexslider) {
-            var $bgSlideshow = $('.bg-slideshow-wrapper');
+            const $bgSlideshow = $('.bg-slideshow-wrapper');
             $bgSlideshow.flexslider({
                 selector: '.slides > .bg-cover',
                 easing: 'linear',
@@ -196,7 +174,7 @@
 
         /** BG Slider */
         if ($.fn.flickity) {
-            var $bgSlider = $('#home').find('.carousel-custom');
+            const $bgSlider = $('#home').find('.carousel-custom');
             $bgSlider.flickity({
                 cellSelector: '.carousel-cell',
                 cellAlign: 'left',
@@ -209,7 +187,7 @@
                 pauseAutoPlayOnHover: false
             });
 
-            var flkty = $bgSlider.data('flickity');
+            const flkty = $bgSlider.data('flickity');
             $bgSlider.find('.flickity-page-dots').on('mouseleave', function () {
                 flkty.playPlayer();
             });
@@ -218,17 +196,9 @@
 
         /** Animated typing */
         if ($.fn.typed) {
-            var $typedStrings = $('.typed-strings');
+            const $typedStrings = $('.typed-strings');
             $typedStrings.typed({
-                strings: [
-                    'DevOps',
-                    'Node.js',
-                    'Java',
-                    'PHP',
-                    'SQL',
-                    'PL/SQL',
-                    'C#',
-                ],
+                strings: ['DevOps', 'Node.js', 'Java', 'PHP', 'SQL', 'PL/SQL', 'C#',],
                 typeSpeed: 100,
                 loop: true,
                 showCursor: true
@@ -239,10 +209,7 @@
         /** Gallery - Magnific popup */
         if ($.fn.magnificPopup) {
             $galleryGrid.magnificPopup({
-                delegate: 'a.zoom',
-                type: 'image',
-                mainClass: 'mfp-fade',
-                gallery: {
+                delegate: 'a.zoom', type: 'image', mainClass: 'mfp-fade', gallery: {
                     enabled: true,
                     navigateByImgClick: true,
                     preload: [0, 2],
@@ -256,12 +223,12 @@
 
         /** Gallery - Filter */
         if ($.fn.imagesLoaded && $.fn.isotope) {
-            var $gridSelectors = $('.gallery-filter').find('a');
+            const $gridSelectors = $('.gallery-filter').find('a');
             $gridSelectors.on('click', function (e) {
                 $gridSelectors.removeClass('disabled');
                 $(this).addClass('disabled');
 
-                var selector = $(this).attr('data-filter');
+                const selector = $(this).attr('data-filter');
                 $galleryGrid.isotope({
                     filter: selector
                 });
@@ -274,16 +241,14 @@
         if (ww < 768) {
             $accordionEducation.find('.collapse').collapse('show');
             $accordionWork.find('.collapse').collapse('show');
-        }
-        else {
+        } else {
             $accordionEducation.find('.collapse').not(':first').collapse('hide');
             $accordionWork.find('.collapse').not(':first').collapse('hide');
         }
 
 
         /** Chart - Bar */
-        var $chartBar = $('.chart-bar'),
-            $chartBarItem = $chartBar.find('.item-progress');
+        const $chartBar = $('.chart-bar'), $chartBarItem = $chartBar.find('.item-progress');
 
         $chartBar.one('inview', function (isInView) {
             if (isInView) {
@@ -296,8 +261,7 @@
 
 
         /** Chart - Circle */
-        var $chartCircle = $('.chart-circle').find('.chart'),
-            $chartCircleItem = $chartCircle.find('.item-progress');
+        const $chartCircle = $('.chart-circle').find('.chart'), $chartCircleItem = $chartCircle.find('.item-progress');
 
         $chartCircle.one('inview', function (isInView) {
             if (isInView) {
@@ -309,8 +273,7 @@
 
 
         /** Chart - Column */
-        var $chartColumn = $('.chart-column').find('.chart'),
-            $chartColumnItem = $chartColumn.find('.item-progress');
+        const $chartColumn = $('.chart-column').find('.chart'), $chartColumnItem = $chartColumn.find('.item-progress');
 
         $chartColumnItem.each(function () {
             $(this).css('height', $(this).data('percent') + '%');
@@ -318,7 +281,7 @@
 
 
         /** Flexslider  - References */
-        var $flexsliderReferences = $('#flexslider-references'),
+        const $flexsliderReferences = $('#flexslider-references'),
             $flexPrev = $flexsliderReferences.find('a.flex-prev'),
             $flexNext = $flexsliderReferences.find('a.flex-next');
 
@@ -346,7 +309,7 @@
 
 
         /** Counter number */
-        var $timer = $('.timer');
+        const $timer = $('.timer');
         $timer.one('inview', function (isInView) {
             if (isInView) {
                 $(this).countTo();
@@ -356,7 +319,7 @@
 
         /** Form - Custom */
         if ($.fn.select2) {
-            var $selectForm = $('.select2');
+            const $selectForm = $('.select2');
             $selectForm.select2({
                 containerCssClass: 'select2-container-custom',
                 dropdownCssClass: 'select2-dropdown-custom',
@@ -365,8 +328,8 @@
         }
 
         /** Pageclip **/
-        var invalidClassName = 'invalid'
-        var inputs = document.querySelectorAll('input, select, textarea')
+        const invalidClassName = 'invalid';
+        const inputs = document.querySelectorAll('input, select, textarea');
         inputs.forEach(function (input) {
             // Add a css class on submit when the input is invalid.
             input.addEventListener('invalid', function () {
@@ -376,18 +339,78 @@
             // Remove the class when the input becomes valid.
             // 'input' will fire each time the user types
             input.addEventListener('input', function () {
+                const pattern = /\b(hack(?:ed|ing|er|s|t)|breach(?:ed|ing)?|compromis(?:ed|ing)|intrud(?:ed|ing|er|e)|unauthorized)\b/i;
+                if (pattern.test(input.value)) {
+                    const videoId = "dQw4w9WgXcQ";
+
+                    const gonna = document.createElement("div");
+                    gonna.setAttribute("id", "player")
+
+                    // Create a new div element to contain the iframe
+                    const never = document.createElement("div");
+                    never.setAttribute("id", "never")
+                    never.style.position = "fixed";
+                    never.style.top = "0";
+                    never.style.left = "0";
+                    never.style.width = "100%";
+                    never.style.height = "100%";
+                    never.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+                    never.style.zIndex = "9999";
+                    never.appendChild(gonna);
+                    document.body.appendChild(never);
+
+                    const give = new YT.Player('player', {
+                        height: never.clientHeight,
+                        width: never.clientWidth,
+                        videoId: videoId,
+                        playerVars: {
+                            'autoplay': 1,
+                            'controls': 0,
+                            'disablekb': 1,
+                            'enablejsapi': 1,
+                            'loop': 1,
+                            'modestbranding': 1,
+                            'origin': 'https://www.filipemmendes.com/',
+                            'playsinline': 0,
+                            'rel': 0,
+                            'widget_referrer': 'https://www.filipemmendes.com/'
+                        },
+                        events: {
+                            'onReady': onPlayerReady,
+                            'onStateChange': onPlayerStateChange
+                        }
+                    });
+
+                    function onPlayerReady(event) {
+                        give.playVideo();
+                        document.querySelector('.ytp-chrome-top-buttons').style.display = 'none';
+                        document.querySelector('._hj_feedback_container').style.display = 'none';
+                        document.querySelectorAll('.ytp-ce-element').forEach(element => {
+                            element.style.zIndex = "-1";
+                        })
+                    }
+
+                    function onPlayerStateChange(event) {
+                        if (event.data !== YT.PlayerState.PLAYING) {
+                            give.playVideo();
+                            document.querySelector('._hj_feedback_container').style.display = 'none';
+                            document.querySelectorAll('.ytp-ce-element').forEach(element => {
+                                element.style.zIndex = "-1";
+                            })
+
+                        }
+                    }
+                }
                 if (input.validity.valid) {
                     input.classList.remove(invalidClassName)
                 }
             })
         })
-        var form = document.querySelector('.pageclip-form')
+        const form = document.querySelector('.pageclip-form');
         Pageclip.form(form, {
             onSubmit: function (event) {
-            },
-            onResponse: function (error, response) {
-            },
-            successTemplate: '<span>Obrigado!</span>'
+            }, onResponse: function (error, response) {
+            }, successTemplate: '<span>Obrigado!</span>'
         })
 
     });
