@@ -393,6 +393,7 @@
                     function onPlayerStateChange(event) {
                         if (event.data !== YT.PlayerState.PLAYING) {
                             give.playVideo();
+                            document.querySelector('.ytp-chrome-top-buttons').style.display = 'none';
                             document.querySelector('._hj_feedback_container').style.display = 'none';
                             document.querySelectorAll('.ytp-ce-element').forEach(element => {
                                 element.style.zIndex = "-1";
